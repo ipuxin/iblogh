@@ -44,8 +44,18 @@ use yii\helpers\ArrayHelper;
         ->indexBy('id')
         ->column();
         */
-    $psArray = Yii::$app->db->createCommand('select id,name from poststatus')->queryAll();
-    $allStatus = ArrayHelper::map($psArray,'id','name');
+    $allStatus = (new \yii\db\Query())
+        ->select(['name', 'id'])
+        ->from('poststatus')
+        ->indexBy('id')
+        ->column();
+    var_dump($allStatus);
+    /**
+     * array (size=3)
+     * 1 => string '草稿' (length=6)
+     * 2 => string '已发布' (length=9)
+     * 3 => string '已归档' (length=9)
+     */
     ?>
     <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
 
