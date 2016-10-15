@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\Cookie;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 //use yii\filters\HttpCache;
 /**
  * PostController implements the CRUD actions for Post model.
@@ -72,6 +73,14 @@ class PostController extends Controller
         $model = new Post();
 
         /**
+         * 更新时间
+         * 这种方法直观,易于理解,
+         * 但这种赋值语句,数据业务逻辑应放到模型中
+         */
+        $model->create_time = time();
+        $model->update_time = time();
+
+        /**
          * $model->save(),这一步,会自动验证数据是否符合规则,然后再执行保存
          */
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -92,6 +101,13 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        /**
+         * 更新修改时间
+         * 这种方法直观,易于理解,
+         * 但这种赋值语句,数据业务逻辑应放到模型中
+         */
+        $model->update_time = time();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

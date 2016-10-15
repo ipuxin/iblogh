@@ -61,10 +61,6 @@ use common\models\Adminuser;
                         ->indexBy('id')
                         ->column(), ['prompt' => '请选择状态']) ?>
 
-    <?= $form->field($model, 'create_time')->textInput() ?>
-
-    <?= $form->field($model, 'update_time')->textInput() ?>
-
     <?= $form->field($model, 'author_id')->dropDownList(Adminuser::find()
                         ->select(['nickname', 'id'])
                         ->indexBy('id')
