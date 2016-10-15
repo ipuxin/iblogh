@@ -48,12 +48,11 @@ use yii\helpers\ArrayHelper;
         ->select(['name', 'id'])
         ->from('poststatus')
         ->indexBy('id')
-        ->one();
+        ->scalar();
     var_dump($allStatus);
+    exit;
     /**
-     * array (size=2)
-     * 'name' => string '草稿' (length=6)
-     * 'id' => string '1' (length=1)
+     *string '草稿' (length=6)
      */
     ?>
     <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
