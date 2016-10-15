@@ -47,6 +47,7 @@ use yii\helpers\ArrayHelper;
     $allStatus = (new \yii\db\Query())
         ->select(['name', 'id'])
         ->from('poststatus')
+        //取第一列的值
         ->column();
     var_dump($allStatus);
     /**
