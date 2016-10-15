@@ -52,7 +52,6 @@ class Adminuser extends \yii\db\ActiveRecord
             'profile' => 'Profile',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -60,4 +59,5 @@ class Adminuser extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Post::className(), ['author_id' => 'id']);
     }
+
 }

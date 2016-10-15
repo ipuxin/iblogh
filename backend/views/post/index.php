@@ -34,6 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'update_time:datetime',
             // 'author_id',
 
+            /*
+             * 遗留问题,怎么从标题进入查看内容
+             */
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
