@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Poststatus;
 use yii\helpers\ArrayHelper;
+use common\models\Adminuser;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
@@ -44,12 +45,7 @@ use yii\helpers\ArrayHelper;
         ->indexBy('id')
         ->column();
         */
-    $allStatus = Poststatus::find()
-        ->select(['name', 'id'])
-        ->from('poststatus')
-        ->indexBy('id')
-        ->column();
-    var_dump($allStatus);
+
     /**
      *array (size=3)
      * 1 => string '草稿' (length=6)
@@ -57,13 +53,22 @@ use yii\helpers\ArrayHelper;
      * 3 => string '已归档' (length=9)
      */
     ?>
-    <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
+
+    <?= $form->field($model, 'status')->dropDownList(Poststatus::find()
+                        ->select(['name', 'id'])
+                        //排序的字段
+                        ->from('poststatus')
+                        ->indexBy('id')
+                        ->column(), ['prompt' => '请选择状态']) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 
     <?= $form->field($model, 'update_time')->textInput() ?>
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
+    <?= $form->field($model, 'author_id')->dropDownList(Adminuser::find()
+                        ->select(['nickname', 'id'])
+                        ->indexBy('id')
+                        ->column(), ['prompt' => '请选择状态']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? '新增' : '更新', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
