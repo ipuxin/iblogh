@@ -47,12 +47,13 @@ use yii\helpers\ArrayHelper;
     $allStatus = (new \yii\db\Query())
         ->select(['name', 'id'])
         ->from('poststatus')
-        ->indexBy('id')
-        ->scalar();
+        ->column();
     var_dump($allStatus);
-    exit;
     /**
-     *string '草稿' (length=6)
+     *array (size=3)
+     * 0 => string '草稿' (length=6)
+     * 1 => string '已发布' (length=9)
+     * 2 => string '已归档' (length=9)
      */
     ?>
     <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
