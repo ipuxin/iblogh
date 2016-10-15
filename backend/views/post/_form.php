@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tags')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList([1=>'草稿',2=>'已发布'],['prompt'=>'请选择状态']) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 
