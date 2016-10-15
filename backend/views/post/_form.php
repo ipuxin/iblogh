@@ -38,23 +38,49 @@ use yii\helpers\ArrayHelper;
         ->column();
 
         第四种方法：
-        allStatus = Poststatus::find()
+        $allStatus = Poststatus::find()
         ->select(['name','id'])
         ->orderBy('position')
         ->indexBy('id')
         ->column();
         */
-    $allStatus = (new \yii\db\Query())
-        ->select(['name', 'id'])
-        ->from('poststatus')
-        //取第一列的值
-        ->column();
+    $allStatus = Poststatus::find();
     var_dump($allStatus);
     /**
-     *array (size=3)
-     * 0 => string '草稿' (length=6)
-     * 1 => string '已发布' (length=9)
-     * 2 => string '已归档' (length=9)
+     *object(yii\db\ActiveQuery)[72]
+     * public 'sql' => null
+     * public 'on' => null
+     * public 'joinWith' => null
+     * public 'select' => null
+     * public 'selectOption' => null
+     * public 'distinct' => null
+     * public 'from' => null
+     * public 'groupBy' => null
+     * public 'join' => null
+     * public 'having' => null
+     * public 'union' => null
+     * public 'params' =>
+     * array (size=0)
+     * empty
+     * private '_events' (yii\base\Component) =>
+     * array (size=0)
+     * empty
+     * private '_behaviors' (yii\base\Component) =>
+     * array (size=0)
+     * empty
+     * public 'where' => null
+     * public 'limit' => null
+     * public 'offset' => null
+     * public 'orderBy' => null
+     * public 'indexBy' => null
+     * public 'modelClass' => string 'common\models\Poststatus' (length=24)
+     * public 'with' => null
+     * public 'asArray' => null
+     * public 'multiple' => null
+     * public 'primaryModel' => null
+     * public 'link' => null
+     * public 'via' => null
+     * public 'inverseOf' => null
      */
     ?>
     <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
