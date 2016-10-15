@@ -43,10 +43,9 @@ use yii\helpers\ArrayHelper;
         ->orderBy('position')
         ->indexBy('id')
         ->column();
-
         */
-    $psObjs = Poststatus::find()->all();
-    $allStatus = ArrayHelper::map($psObjs, 'id', 'name');
+    $psArray = Yii::$app->db->createCommand('select id,name from poststatus')->queryAll();
+    $allStatus = ArrayHelper::map($psArray,'id','name');
     ?>
     <?= $form->field($model, 'status')->dropDownList($allStatus, ['prompt' => '请选择状态']) ?>
 
