@@ -25,8 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
      * GridView 网格小部件
      */
     ?>
+    <?php
+         //$searchModel = new common\models\Tag();
+    ?>
     <?= GridView::widget([
+
+        /**
+         * 数据提供者:dataProvider
+         */
         'dataProvider' => $dataProvider,
+
+        /**
+         * 查询表单生成器
+         */
         'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
@@ -39,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             //'author_id',
             [
-                'attribute' => 'author_id',
+                'attribute' => 'authorName',
                 'label' => '作者',
                 'value' => 'author.nickname',
             ],
