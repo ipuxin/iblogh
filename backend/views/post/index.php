@@ -2,22 +2,23 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Poststatus;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Posts';
+$this->title = '文章管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-index">
-    <!--//把数据传递到testPost文件中-->
-<?= $this->render('testPost',['test_arr'=>'hello testPost!']) ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('创建文章', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
