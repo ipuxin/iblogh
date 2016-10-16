@@ -23,6 +23,12 @@ use Yii;
 class Post extends \yii\db\ActiveRecord
 {
     /**
+     * @var
+     * 储存修改前的标签信息
+     */
+    private $_oldTags;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -112,4 +118,38 @@ class Post extends \yii\db\ActiveRecord
         }
     }
 
+    /**
+     * 重写父类的afterFind方法:
+     * 保存修改前的标签信息
+     *
+     * 注意:
+     * 重写父类的方法,都要先调用一下父类的方法
+     */
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->_oldTags = $this->tags;
+    }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     * 标签的新增和修改,都是调用这个方法
+     *
+     * 文章保存(新增,或修改)后,执行标签的更改
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        Tag::updateFrequency($this->_oldTags, $this->tags);
+    }
+
+    /**
+     * 文章删除后,调用这个方法删除标签
+     */
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        Tag::updateFrequency($this->tags, '');
+    }
 }
