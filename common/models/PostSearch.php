@@ -47,8 +47,121 @@ class PostSearch extends Post
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+
+            /**
+             * 指定分页
+             */
+            'pagination' => ['pageSize' => 5],
+
+            /**
+             * 指定排序
+             */
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+
+                /*
+                 * 设定可以排序的字段
+                 */
+                'attributes' => ['id', 'title'],
+            ],
         ]);
 
+        echo "<pre>";
+        print_r($dataProvider->getPagination());
+        /**
+         * 显示分页信息:
+         * $dataProvider->getPagination()
+         * yii\data\Pagination Object
+         * (
+         * [pageParam] => page
+         * [pageSizeParam] => per-page
+         * [forcePageParam] => 1
+         * [route] =>
+         * [params] =>
+         * [urlManager] =>
+         * [validatePage] => 1
+         * [totalCount] => 0
+         * [defaultPageSize] => 20
+         * [pageSizeLimit] => Array
+         * (
+         * [0] => 1
+         * [1] => 50
+         * )
+         *
+         * [_pageSize:yii\data\Pagination:private] => 5
+         * [_page:yii\data\Pagination:private] =>
+         * )
+         */
+
+
+        echo "<hr>";
+        print_r($dataProvider->getSort());
+        /**
+         * 指定哪些可以排序
+         * $dataProvider->getSort()
+         * yii\data\Sort Object
+         * (
+         * [enableMultiSort] =>
+         * [attributes] => Array
+         * (
+         * [id] => Array
+         * (
+         * [asc] => Array
+         * (
+         * [id] => 4
+         * )
+         *
+         * [desc] => Array
+         * (
+         * [id] => 3
+         * )
+         *
+         * [label] => ID
+         * )
+         *
+         * [title] => Array
+         * (
+         * [asc] => Array
+         * (
+         * [title] => 4
+         * )
+         *
+         * [desc] => Array
+         * (
+         * [title] => 3
+         * )
+         *
+         * [label] => 标题
+         * )
+         *
+         * )
+         *
+         * [sortParam] => sort
+         * [defaultOrder] => Array
+         * (
+         * [id] => 3
+         * )
+         *
+         * [route] =>
+         * [separator] => ,
+         * [params] =>
+         * [urlManager] =>
+         * [_attributeOrders:yii\data\Sort:private] =>
+         * )
+         */
+
+        echo "<hr>";
+        /**
+         * 当前页的数据条数
+         */
+        print_r($dataProvider->getCount());
+        echo "<hr>";
+        print_r($dataProvider->getTotalCount());
+
+        echo "</pre>";
+        exit(0);
         $this->load($params);
 
         if (!$this->validate()) {
