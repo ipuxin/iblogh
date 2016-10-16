@@ -25,9 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
      * GridView 网格小部件
      */
     ?>
-    <?php
-         //$searchModel = new common\models\Tag();
-    ?>
     <?= GridView::widget([
 
         /**

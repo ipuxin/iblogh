@@ -105,7 +105,8 @@ class PostSearch extends Post
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+//            'id' => $this->id,
+            'post.id' => $this->id,
             'status' => $this->status,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
@@ -121,7 +122,7 @@ class PostSearch extends Post
          * 1.连接用户表
          * 2.设置查询条件为:like模糊查询
          */
-        $query->join('INNER JOIN', 'Adminuser', 'post.author_id = Adminuser.id');
+        $query->join('INNER JOIN', 'Adminuser', 'post.author_id = adminuser.id');
         $query->andFilterWhere(['like', 'Adminuser.nickname', $this->authorName]);
 
         /**
