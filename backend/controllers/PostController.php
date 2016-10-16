@@ -77,8 +77,8 @@ class PostController extends Controller
          * 这种方法直观,易于理解,
          * 但这种赋值语句,数据业务逻辑应放到模型中
          */
-        $model->create_time = time();
-        $model->update_time = time();
+//        $model->create_time = time();
+//        $model->update_time = time();
 
         /**
          * $model->save(),这一步,会自动验证数据是否符合规则,然后再执行保存
@@ -107,7 +107,7 @@ class PostController extends Controller
          * 这种方法直观,易于理解,
          * 但这种赋值语句,数据业务逻辑应放到模型中
          */
-        $model->update_time = time();
+//        $model->update_time = time();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

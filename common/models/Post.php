@@ -85,4 +85,31 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Poststatus::className(), ['id' => 'status']);
     }
+
+    /**
+     * 在ActiveRecord保存流程中,重写的方法
+     * @param bool $insert
+     * 区分是新增还是修改
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+
+        //保证父类的beforeSave()方法执行
+        if (parent::beforeSave($insert)) {
+
+            //如果是新增
+            if ($insert) {
+                $this->create_time = time();
+                $this->update_time = time();
+            } else {
+                $this->update_time = time();
+            }
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
 }
