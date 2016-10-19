@@ -24,14 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
+            [
+                'attribute' => 'id',
+                'contentOptions' => ['width' => '30px'],
+            ],
 //            'content:ntext',
             [
                 'attribute' => 'content',
                 /**
                  * 另一种新方法,在comment模型中新建
                  */
-                'value'=>'beginning'
+                'value' => 'beginning'
             ],
             'status',
             'create_time:datetime',
