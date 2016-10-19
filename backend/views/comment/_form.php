@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Commentstatus;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Comment */
@@ -14,7 +15,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->dropDownList(Commentstatus::find()
+        ->select(['name','id'])
+        ->orderBy('position')
+        ->indexBy('id')
+        ->column(),
+        ['prompt'=>'请选择状态']) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
 
