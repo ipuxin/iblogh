@@ -66,6 +66,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => '作者',
                 'value' => 'user.username'
             ],
+            [
+              'attribute'=>'post.title',
+            ],
             // 'email:email',
             // 'url:url',
             // 'post_id',

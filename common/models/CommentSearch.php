@@ -19,7 +19,7 @@ class CommentSearch extends Comment
      */
     public function attributes()
     {
-        return array_merge(parent::attributes(), ['user.username']);
+        return array_merge(parent::attributes(), ['user.username', 'post.title']);
     }
 
     /**
@@ -29,7 +29,7 @@ class CommentSearch extends Comment
     {
         return [
             [['id', 'status', 'create_time', 'userid', 'post_id'], 'integer'],
-            [['content', 'email', 'url', 'user.username'], 'safe'],
+            [['content', 'email', 'url', 'user.username', 'post.title'], 'safe'],
         ];
     }
 
@@ -81,6 +81,7 @@ class CommentSearch extends Comment
             ->andFilterWhere(['like', 'url', $this->url]);
 
         /**
+         * 实现用户姓名的搜索
          * 构建按字符串查询的查询器:
          * 1.连接用户表
          * 2.设置查询条件为:like模糊查询
@@ -98,7 +99,21 @@ class CommentSearch extends Comment
                 'desc' => ['user.username' => SORT_DESC],
             ];
 
+        /**
+         * 实现文章标题的搜索
+         */
+        $query->join('INNER JOIN', 'post', 'comment.post_id = post.id');
+        $query->andFilterWhere(['like', 'post.title', $this->getAttribute('post.title')]);
+
+        /**
+         * 实现关联表用户名的点击排序功能
+         */
+        $dataProvider->sort->attributes['post.title'] =
+            [
+                'asc' => ['post.title' => SORT_ASC],
+                'desc' => ['post.title' => SORT_DESC],
+            ];
+
         return $dataProvider;
     }
-
 }
