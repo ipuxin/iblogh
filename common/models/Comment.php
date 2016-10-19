@@ -23,6 +23,13 @@ use Yii;
 class Comment extends \yii\db\ActiveRecord
 {
     /**
+     * 用于临时显示的属性
+     */
+    private $label_id;
+    private $label_create_time;
+    private $label_post_id;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -130,5 +137,12 @@ class Comment extends \yii\db\ActiveRecord
             }
             return true;
         } else  return false;
+    }
+
+    /**
+     *评论审核状态下拉菜单
+     */
+    public function getApproves(){
+        return Commentstatus::getApprove();
     }
 }

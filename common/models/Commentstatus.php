@@ -54,4 +54,15 @@ class Commentstatus extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Comment::className(), ['status' => 'id']);
     }
+
+    /**
+     *评论审核状态下拉菜单
+     */
+    public static function getApprove(){
+        return self::find()
+            ->select(['name','id'])
+            ->orderBy('position')
+            ->indexBy('id')
+            ->column();
+    }
 }
