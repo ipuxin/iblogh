@@ -109,4 +109,13 @@ class Comment extends \yii\db\ActiveRecord
         $this->status = 2; //设置评论状态为已审核
         return ($this->save() ? true : false);
     }
+
+    /**
+     * 气泡通知
+     * @return mixed
+     */
+    public static function getPengdingCommentCount()
+    {
+        return Comment::find()->where(['status'=>1])->count();
+    }
 }
