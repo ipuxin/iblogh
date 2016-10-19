@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Comment */
 
-$this->title = $model->id;
+$this->title = $model->id . ': ' . $model->beginning;
 $this->params['breadcrumbs'][] = ['label' => '评论管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,12 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-//            'id',
-            [
-                'label' => '文章标题',
-                'attribute' => 'id',
-                'value' => $model->post->title,
-            ],
+            'id',
             'content:ntext',
 //            'status',
             [
@@ -46,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'create_time:datetime',
             [
                 'attribute' => 'create_time',
-                'format'=>['date','php:Y-m-d h:i:s']
+                'format' => ['date', 'php:Y-m-d h:i:s']
             ],
 //            'author_id',
             [
@@ -57,7 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'email:email',
             'url:url',
-            'post_id',
+//            'post_id',
+            [
+                'label' => '文章标题',
+                'attribute' => 'id',
+                'value' => $model->post->title,
+            ],
         ],
     ]) ?>
 

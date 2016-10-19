@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = '修改评论: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => '评论管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->beginning, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '修改';
 ?>
 <div class="comment-update">

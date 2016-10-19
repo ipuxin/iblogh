@@ -98,7 +98,7 @@ class Comment extends \yii\db\ActiveRecord
         //计算长度,为是否增加...做准备
         $tmpLen = mb_strlen($tmpStr, 'UTF-8');
         //截取字符串
-        return mb_substr($tmpStr, 0, 20, 'utf-8') . (($tmpLen > 20) ? '...' : '');
+        return mb_substr($tmpStr, 0, 10, 'utf-8') . (($tmpLen > 20) ? '...' : '');
     }
 
     /**
@@ -116,6 +116,19 @@ class Comment extends \yii\db\ActiveRecord
      */
     public static function getPengdingCommentCount()
     {
-        return Comment::find()->where(['status'=>1])->count();
+        return Comment::find()->where(['status' => 1])->count();
+    }
+
+    /**
+     * 保存创建时间
+     */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->create_time = time();
+            }
+            return true;
+        } else  return false;
     }
 }
