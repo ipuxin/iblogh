@@ -38,7 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'beginning'
             ],
             'status',
-            'create_time:datetime',
+//            'create_time:datetime',
+            [
+                'attribute' => 'create_time',
+                'format' => ['date', 'php:Y-m-d H:i:s'],
+            ],
             'userid',
             // 'email:email',
             // 'url:url',
