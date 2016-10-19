@@ -114,6 +114,15 @@ class CommentSearch extends Comment
                 'desc' => ['post.title' => SORT_DESC],
             ];
 
+        /**
+         * 实现关联表用户名的点击排序功能
+         */
+        $dataProvider->sort->defaultOrder =
+            [
+                'status' => SORT_ASC,
+                'id' => SORT_DESC,
+            ];
+
         return $dataProvider;
     }
 }
