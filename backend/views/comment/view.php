@@ -28,11 +28,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
+            [
+                'label' => '文章标题',
+                'attribute' => 'id',
+                'value' => $model->post->title,
+            ],
             'content:ntext',
-            'status',
+//            'status',
+            [
+                'attribute' => 'status',
+                'value' => $model->status0->name,
+            ],
+            /**
+             * Yii2时间格式化
+             */
             'create_time:datetime',
-            'userid',
+            [
+                'attribute' => 'create_time',
+                'format'=>['date','php:Y-m-d h:i:s']
+            ],
+//            'author_id',
+            [
+                'attribute' => 'author_id',
+                'value' => $model->user->username,
+                //重写标签
+                'label' => '作者昵称'
+            ],
             'email:email',
             'url:url',
             'post_id',
