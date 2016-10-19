@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Commentstatus;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CommentSearch */
@@ -37,13 +38,34 @@ $this->params['breadcrumbs'][] = $this->title;
                  */
                 'value' => 'beginning'
             ],
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => 'status0.name',
+                'filter' => Commentstatus::find()
+                    ->select(['name', 'id'])
+                    ->orderBy('position')
+                    ->indexBy('id')
+                    ->column(),
+            ],
+//            'status',
+
 //            'create_time:datetime',
             [
                 'attribute' => 'create_time',
                 'format' => ['date', 'php:Y-m-d H:i:s'],
             ],
-            'userid',
+//            'userid',
+
+            /**
+             * 根据id显示作者姓名:
+             * user.username中
+             * user为comment模型中的getUser的名称
+             */
+            [
+                'attribute' => 'user.username',
+                'label' => '作者',
+                'value' => 'user.username'
+            ],
             // 'email:email',
             // 'url:url',
             // 'post_id',
