@@ -121,4 +121,19 @@ class CommentController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * @param $id
+     * 审核评论
+     * 两种查询方法:
+     * 使用$this->findModel(),只需传入id即可
+     * 使用对象的静态方法调用,要写查询条件
+     */
+    public function actionApprove($id){
+        $model = $this->findModel($id);
+//        $model = Comment::findOne(['id'=>$id]);
+        if($model->approve()){
+            return $this->redirect(['index']);
+        }
+    }
 }

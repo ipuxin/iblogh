@@ -100,4 +100,13 @@ class Comment extends \yii\db\ActiveRecord
         //截取字符串
         return mb_substr($tmpStr, 0, 20, 'utf-8') . (($tmpLen > 20) ? '...' : '');
     }
+
+    /**
+     * 处理评论审核的业务
+     */
+    public function approve()
+    {
+        $this->status = 2; //设置评论状态为已审核
+        return ($this->save() ? true : false);
+    }
 }
