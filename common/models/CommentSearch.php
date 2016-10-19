@@ -13,13 +13,23 @@ use common\models\Comment;
 class CommentSearch extends Comment
 {
     /**
+     * id->字符串搜索---2
+     * @return array
+     * 添加搜索属性
+     */
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['user.username']);
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
             [['id', 'status', 'create_time', 'userid', 'post_id'], 'integer'],
-            [['content', 'email', 'url'], 'safe'],
+            [['content', 'email', 'url', 'user.username'], 'safe'],
         ];
     }
 
@@ -59,8 +69,8 @@ class CommentSearch extends Comment
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
+            'comment.id' => $this->id,
+            'comment.status' => $this->status,
             'create_time' => $this->create_time,
             'userid' => $this->userid,
             'post_id' => $this->post_id,
@@ -70,6 +80,25 @@ class CommentSearch extends Comment
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'url', $this->url]);
 
+        /**
+         * 构建按字符串查询的查询器:
+         * 1.连接用户表
+         * 2.设置查询条件为:like模糊查询
+         */
+
+        $query->join('INNER JOIN', 'user', 'comment.userid = user.id');
+        $query->andFilterWhere(['like', 'user.username', $this->getAttribute('user.username')]);
+
+        /**
+         * 实现关联表用户名的点击排序功能
+         */
+        $dataProvider->sort->attributes['user.username'] =
+            [
+                'asc' => ['user.username' => SORT_ASC],
+                'desc' => ['user.username' => SORT_DESC],
+            ];
+
         return $dataProvider;
     }
+
 }
