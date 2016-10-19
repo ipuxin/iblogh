@@ -28,14 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'content:ntext',
             [
                 'attribute' => 'content',
-                'value' => function ($model) {
-                    //去掉html标签
-                    $tmpStr = strip_tags($model->content);
-                    //计算长度,为是否增加...做准备
-                    $tmpLen = mb_strlen($tmpStr,'UTF-8');
-                    //截取字符串
-                    return mb_substr($tmpStr, 0, 20, 'utf-8') . (($tmpLen > 20) ? '...' : '');
-                }
+                /**
+                 * 另一种新方法,在comment模型中新建
+                 */
+                'value'=>'beginning'
             ],
             'status',
             'create_time:datetime',

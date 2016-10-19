@@ -86,4 +86,18 @@ class Comment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'userid']);
     }
+
+    /**
+     * @return string
+     * 截取字符串
+     */
+    public function getBeginning()
+    {
+        //去掉html标签
+        $tmpStr = strip_tags($this->content);
+        //计算长度,为是否增加...做准备
+        $tmpLen = mb_strlen($tmpStr, 'UTF-8');
+        //截取字符串
+        return mb_substr($tmpStr, 0, 20, 'utf-8') . (($tmpLen > 20) ? '...' : '');
+    }
 }
